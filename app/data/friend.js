@@ -10,7 +10,7 @@ var friend = [
 }, {
     name: "Dr. Strange",
     photo: "https://static.tvtropes.org/pmwiki/pub/images/doctorstrangeinfinitywar.png",
-        scores: [1,5,5,1,2,3,1,1,1,2]
+    scores: [1,5,5,1,2,3,1,1,1,2]
 }, {
     name: "Black Panther",
     photo: "https://static.tvtropes.org/pmwiki/pub/images/panther.jpg",
@@ -59,4 +59,6 @@ var friend = [
     name: "Scarlet Witch",
     photo: "https://static.tvtropes.org/pmwiki/pub/images/scarletwitchinfinitywar.png",
     scores: [3,5,5,5,5,2,1,5,5,2]
-}]
+}];
+
+module.exports = friend;

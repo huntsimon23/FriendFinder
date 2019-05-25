@@ -4,15 +4,9 @@
 <head>
     <title>Enhanced MCU FriendFinder</title>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
@@ -35,12 +29,12 @@
         <hr>
 
         <h5>Tell us your name (Real or SuperHero)</h5>
-        <input type="text" name="" id="name" class="form-control" required>
+        <input type="text" name="name" id="name" class="form-control" required>
         <h5>Link to Photo Image (Required)</h5>
-        <input type="text" name="" id="photo" class="form-control" required>
+        <input type="text" name="photo" id="photo" class="form-control" required>
         <hr>
 
-        <form>
+        <form name="scores">
             <div class="form-group">
                 <label for="q1">1: Tends to win battles with brute force</label>
                 <select class="form-control" id="q1">
@@ -155,7 +149,7 @@
         <br>
         <br>
 
-        <button type="submit" class="btn btn-primary btn-lg btn-block specialbutton" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i> Submit</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block specialbutton" id="submit">Submit</button>
     </div>
 
     <!-- Modal -->
@@ -184,11 +178,52 @@
     <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="container vertical_alignment">
             <p class="text-center">
-                <a href="/api/friends" target="_blank">API Friends List</a> | 
-                <a href="https://github.com/gnenov89/FriendFInder" target="_blank">GitHub Repo</a> | 
+                <a href="/api/friends" target="_blank">API Friends List</a> |  
                 <a href="home.html">Home</a></p>
         </div>
     </nav>
-
+    <script type="text/javascript">
+          $("#submit").on("click", function() {
+            function validateForm() {
+              var isValid = true;
+              $(".form-control").each(function() {
+                if ($(this).val() === "") {
+                  isValid = false;
+                }
+              });
+              return isValid;
+            }
+            if (validateForm()) {
+              var userData = {
+                name: $("#name").val(),
+                photo: $("#photo").val(),
+                scores: [
+                  $("#q1").val(),
+                  $("#q2").val(),
+                  $("#q3").val(),
+                  $("#q4").val(),
+                  $("#q5").val(),
+                  $("#q6").val(),
+                  $("#q7").val(),
+                  $("#q8").val(),
+                  $("#q9").val(),
+                  $("#q10").val()
+                ]
+              };
+             
+              var currentURL = window.location.origin;
+              
+              $.post(currentURL + "/api/friends", function(data) {
+                
+                $("#matchName").text(data.name);
+                $("#matchImg").attr("src", data.photo);
+                $("#resultsModal").modal(show);
+              });
+            }
+            else {
+              alert("Please complete survey before submitting!");
+            }
+          });
+        </script>
 </body>
 </html>
