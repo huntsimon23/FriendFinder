@@ -5,7 +5,7 @@ This app (in progress) is an MCU "Enhanced" Friend Finder.  Users will complete 
 The app uses the following technologies:
 - HTML/Bootstrap CSS
 - Node.js with NPM packages(path, express)
-- Express.js
+- Express.js Server
 - JSON
 
 Tasks remaining:
